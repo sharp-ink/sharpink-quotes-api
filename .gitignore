@@ -1,0 +1,10 @@
+
+###  Mac ###
+.DS_Store
+
+### Intellij ###
+.idea
+sharpink-quote-api.iml
+
+target/
+
