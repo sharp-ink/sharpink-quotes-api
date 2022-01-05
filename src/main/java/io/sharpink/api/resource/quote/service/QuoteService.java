@@ -30,4 +30,15 @@ public class QuoteService {
         return quoteMapper.toQuoteDto(randomQuote);
     }
 
+    /**
+     * Create or save the given quote in the DB (if id = null => save as a new quote, otherwise update existing quote)
+     */
+    public void createOrUpdateQuote(QuoteDTO quoteDto) {
+        var quote = quoteMapper.toQuote(quoteDto);
+        quoteRepository.save(quote);
+    }
+
+    public void removeQuote(String quoteId) {
+        quoteRepository.deleteById(quoteId);
+    }
 }

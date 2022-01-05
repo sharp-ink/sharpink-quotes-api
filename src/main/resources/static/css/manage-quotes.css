@@ -1,0 +1,33 @@
+body {
+    background-color: #E0F0F5;
+}
+
+.quotes-table {
+
+}
+
+.quotes-table .table-header {
+
+}
+
+.quotes-table .table-body {
+
+}
+
+.form-control.form-control-sm.authorName {
+    color: lightskyblue;
+}
+
+.btn.btn-primary {
+    border-color: black;
+    background-color: deepskyblue;
+}
+
+.btn.btn-outline-primary {
+    border-color: deepskyblue;
+    color: deepskyblue;
+}
+
+.btn.btn-outline-primary:hover {
+    background-color: inherit;
+}
