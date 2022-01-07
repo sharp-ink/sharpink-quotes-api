@@ -6,7 +6,10 @@ import io.sharpink.api.resource.quote.persistence.QuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+
+import static java.util.Comparator.comparing;
 
 @Service
 public class QuoteService {
@@ -20,8 +23,10 @@ public class QuoteService {
         this.quoteMapper = quoteMapper;
     }
 
-    public List<QuoteDTO> getAllQuotes() {
+    public List<QuoteDTO> getAllQuotes(String authorSort) {
+        boolean ascendingAuthorSort = !"desc".equals(authorSort);
         return quoteRepository.findAll().stream()
+            .sorted(ascendingAuthorSort ? comparing(Quote::getAuthor) : comparing(Quote::getAuthor).reversed())
             .map(quoteMapper::toQuoteDto).toList();
     }
 

@@ -3,15 +3,23 @@ body {
 }
 
 .quotes-table {
-
+    border-top: 1px solid black;
 }
 
 .quotes-table .table-header {
-
+    font-weight: bold;
 }
 
 .quotes-table .table-body {
 
+}
+
+.fas.fa-sort-alpha-up, .fas.fa-sort-alpha-down {
+    color: dimgrey;
+}
+
+.fas.fa-sort-alpha-up:hover, .fas.fa-sort-alpha-down:hover {
+    cursor: pointer;
 }
 
 .form-control.form-control-sm.authorName {

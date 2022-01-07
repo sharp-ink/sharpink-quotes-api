@@ -9,11 +9,10 @@
     <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
     <link rel="stylesheet" th:href="@{/css/manage-quotes.css}"/>
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/javascript/manage-quotes.js}"></script>
+    <script type="text/javascript" th:src="@{/javascript/manage-quotes.js}" defer></script>
 </head>
 
-<body>
+<body th:onload="initAuthorSort([[ ${initialAuthorSort} ]])">
 
 <div class="container-fluid">
 
@@ -28,7 +27,11 @@
                 <div class="table quotes-table">
 
                     <div class="row table-header">
-                        <div class="col-2">Auteur</div>
+                        <div class="col-2">
+                            Auteur
+                            <span id="authorAscSortButton"><i th:onclick="sortByAuthor('asc')" class="fas fa-sort-alpha-down" title="Trier par nom d'auteur croissant"></i></span>
+                            <span id="authorDescSortButton"><i th:onclick="sortByAuthor('desc')" class="fas fa-sort-alpha-up" title="Trier par nom d'auteur décroissant"></i></span>
+                        </div>
                         <div class="col-6">Citation</div>
                         <div class="col-2">Issu de</div>
                         <div class="col-2"></div> <!-- actions column -->

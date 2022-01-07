@@ -2,10 +2,13 @@ package io.sharpink.api.admin;
 
 import io.sharpink.api.resource.quote.QuoteDTO;
 import io.sharpink.api.resource.quote.service.QuoteService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import static org.apache.commons.lang3.StringUtils.defaultString;
 
 @Controller
 @RequestMapping("/admin")
@@ -18,11 +21,16 @@ public class QuotesManagementController {
     }
 
     @GetMapping("")
-    public String showQuotesManagementPage(Model model) {
-        var quotes = quoteService.getAllQuotes();
+    public String showQuotesManagementPage(@RequestParam(required = false) String authorSort, Model model) {
+        authorSort = "desc".equals(authorSort) ? "desc": "asc";
+        var quotes = quoteService.getAllQuotes(authorSort);
         model.addAttribute("quotes", quotes);
+
+        model.addAttribute("initialAuthorSort", authorSort);
+
         // we need to provide on the page an empty QuoteDTO object, which will be used in the quote creation form
         model.addAttribute("newQuoteDto", new QuoteDTO());
+
         return "manage-quotes";
     }
 

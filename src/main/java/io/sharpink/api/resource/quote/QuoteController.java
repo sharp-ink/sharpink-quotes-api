@@ -21,7 +21,7 @@ public class QuoteController {
 
     @GetMapping("")
     public List<QuoteDTO> getAllQuotes() {
-        return quoteService.getAllQuotes();
+        return quoteService.getAllQuotes(null);
     }
 
     @GetMapping("random-quote")

@@ -1,4 +1,22 @@
 
+function initAuthorSort(initialAuthorSort) {
+    console.log('initAuthorSort() : initialAuthorSort=' + initialAuthorSort);
+    if (initialAuthorSort === 'asc') {
+        $('#authorAscSortButton').hide();
+        $('#authorDescSortButton').show();
+    } else if (initialAuthorSort === 'desc') {
+        $('#authorAscSortButton').show();
+        $('#authorDescSortButton').hide();
+    }
+}
+
+function sortByAuthor(newAuthorSort) {
+    console.log('sortByAuthor() : newAuthorSort=' + newAuthorSort);
+    const url = new URL(window.location.href);
+    url.searchParams.set('authorSort', newAuthorSort);
+    window.location.href = url.href;
+}
+
 function updateQuote(quoteId) {
     // gets modifications on current quote from the DOM
     const quote = {
