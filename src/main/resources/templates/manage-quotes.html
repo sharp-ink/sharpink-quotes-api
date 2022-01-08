@@ -89,6 +89,17 @@
         </div>
     </div>
 
+    <!-- Form to export all quotes to CSV -->
+
+    <div class="row mb-">
+        <div class="col-12">
+            <h2 class="mb-3">Exporter les citations</h2>
+            <form th:action="@{/admin/export-csv}" method="post">
+                <input type="submit" value="Export CSV" class="btn btn-sm btn-primary">
+            </form>
+        </div>
+    </div>
+
 </div>
 
 </body>

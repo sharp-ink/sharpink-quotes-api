@@ -19,4 +19,5 @@ public class Quote {
     private String text;
     private String from; // the original text from which the quote comes from (can be a book, a poem,...)
 
+    private String language; // 'en / 'fr'
 }

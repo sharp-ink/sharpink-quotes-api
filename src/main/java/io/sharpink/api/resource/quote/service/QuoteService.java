@@ -6,7 +6,6 @@ import io.sharpink.api.resource.quote.persistence.QuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 
 import static java.util.Comparator.comparing;
@@ -24,9 +23,9 @@ public class QuoteService {
     }
 
     public List<QuoteDTO> getAllQuotes(String authorSort) {
-        boolean ascendingAuthorSort = !"desc".equals(authorSort);
+        boolean authorSortDesc = "desc".equals(authorSort);
         return quoteRepository.findAll().stream()
-            .sorted(ascendingAuthorSort ? comparing(Quote::getAuthor) : comparing(Quote::getAuthor).reversed())
+            .sorted(!authorSortDesc ? comparing(Quote::getAuthor) : comparing(Quote::getAuthor).reversed())
             .map(quoteMapper::toQuoteDto).toList();
     }
 

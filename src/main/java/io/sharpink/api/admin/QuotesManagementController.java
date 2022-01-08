@@ -2,21 +2,21 @@ package io.sharpink.api.admin;
 
 import io.sharpink.api.resource.quote.QuoteDTO;
 import io.sharpink.api.resource.quote.service.QuoteService;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import static org.apache.commons.lang3.StringUtils.defaultString;
-
 @Controller
 @RequestMapping("/admin")
 public class QuotesManagementController {
 
+    private final QuoteManagementService quoteManagementService;
     private final QuoteService quoteService;
 
-    public QuotesManagementController(QuoteService quoteService) {
+    public QuotesManagementController(QuoteManagementService quoteManagementService, QuoteService quoteService) {
+        this.quoteManagementService = quoteManagementService;
         this.quoteService = quoteService;
     }
 
@@ -42,13 +42,19 @@ public class QuotesManagementController {
 
     @PostMapping("/update-quote")
     public String updateQuote(@ModelAttribute QuoteDTO quoteDto, BindingResult result, Model model) {
-        quoteService.createOrUpdateQuote(quoteDto); // TODO
+        quoteService.createOrUpdateQuote(quoteDto);
         return "redirect:/admin";
     }
 
-    @PostMapping("remove-quote/{id}") // Thymeleaf seems to have issues dealing with DELETE (unless it's just me ??? ^^)
+    @PostMapping("/remove-quote/{id}") // Thymeleaf seems to have issues dealing with DELETE (unless it's just me ??? ^^)
     public String removeQuote(@PathVariable("id") String quoteId) {
         quoteService.removeQuote(quoteId);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/export-csv")
+    public String exportCsv() {
+        quoteManagementService.exportQuotesToCsv();
         return "redirect:/admin";
     }
 

@@ -12,7 +12,8 @@ public class QuoteMapper {
             .setId(quote.getId())
             .setAuthor(quote.getAuthor())
             .setText(quote.getText())
-            .setFrom(quote.getFrom());
+            .setFrom(quote.getFrom())
+            .setLanguage(quote.getLanguage());
     }
 
     public Quote toQuote(QuoteDTO source) {
@@ -20,6 +21,7 @@ public class QuoteMapper {
             .setId(source.getId())
             .setAuthor(source.getAuthor())
             .setText(source.getText())
-            .setFrom(source.getFrom());
+            .setFrom(source.getFrom())
+            .setLanguage(source.getLanguage());
     }
 }
