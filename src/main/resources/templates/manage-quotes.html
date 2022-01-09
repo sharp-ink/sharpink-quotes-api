@@ -20,13 +20,11 @@
 
     <div class="row mb-3">
         <div th:switch="${quotes}" class="col-12">
+            <h2 class="mt-3 mb-3">Citations</h2>
             <p th:case="null">Il n'y a aucune citation</p>
             <div th:case="*">
-                <h2 class="mt-3 mb-3">Citations</h2>
-
                 <div class="table quotes-table">
-
-                    <div class="row table-header">
+                    <div class="row table-header mb-3">
                         <div class="col-2">
                             Auteur
                             <span id="authorAscSortButton"><i th:onclick="sortByAuthor('asc')" class="fas fa-sort-alpha-down" title="Trier par nom d'auteur croissant"></i></span>
@@ -36,7 +34,6 @@
                         <div class="col-2">Issu de</div>
                         <div class="col-2"></div> <!-- actions column -->
                     </div>
-
                     <div class="table-body">
                         <div th:each="quote : ${quotes}" class="row">
                             <div class="col-2">
@@ -59,6 +56,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -86,6 +84,18 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Display potential duplicates here (when trying to add a new quote results into potential duplicates found) -->
+    <div th:unless="${ potentialDuplicates == null or potentialDuplicates.isEmpty() }" class="row mb-3 potential-duplicates-warning">
+        <div class="col-12">
+            <p>La citation n'a pas été ajoutée car c'est peut-être un doublon des citations suivantes : </p>
+            <ul>
+                <li th:each="potentialDuplicate: ${potentialDuplicates}">
+                    [[ ${potentialDuplicate.author} ]] - [[ ${potentialDuplicate.text} ]]
+                </li>
+            </ul>
         </div>
     </div>
 

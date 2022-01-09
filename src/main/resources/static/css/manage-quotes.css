@@ -22,8 +22,17 @@ body {
     cursor: pointer;
 }
 
-.form-control.form-control-sm.authorName {
+.authorName {
     color: lightskyblue;
+}
+
+.potential-duplicates-warning {
+    border: 1px solid red;
+    border-radius: 10px;
+}
+
+.potential-duplicates-warning {
+
 }
 
 .btn.btn-primary {

@@ -1,6 +1,5 @@
 
 function initAuthorSort(initialAuthorSort) {
-    console.log('initAuthorSort() : initialAuthorSort=' + initialAuthorSort);
     if (initialAuthorSort === 'asc') {
         $('#authorAscSortButton').hide();
         $('#authorDescSortButton').show();
@@ -11,7 +10,6 @@ function initAuthorSort(initialAuthorSort) {
 }
 
 function sortByAuthor(newAuthorSort) {
-    console.log('sortByAuthor() : newAuthorSort=' + newAuthorSort);
     const url = new URL(window.location.href);
     url.searchParams.set('authorSort', newAuthorSort);
     window.location.href = url.href;
