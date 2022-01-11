@@ -16,15 +16,17 @@
 
 <div class="container-fluid">
 
+    <h1>Administration des citations</h1>
+
     <!-- Table of all quotes -->
 
-    <div class="row mb-3">
+    <div class="row mb-4">
         <div th:switch="${quotes}" class="col-12">
-            <h2 class="mt-3 mb-3">Citations</h2>
+            <h4 class="mt-3 mb-4">Citations</h4>
             <p th:case="null">Il n'y a aucune citation</p>
             <div th:case="*">
                 <div class="table quotes-table">
-                    <div class="row table-header mb-3">
+                    <div class="row table-header mb-2">
                         <div class="col-2">
                             Auteur
                             <span id="authorAscSortButton"><i th:onclick="sortByAuthor('asc')" class="fas fa-sort-alpha-down" title="Trier par nom d'auteur croissant"></i></span>
@@ -63,13 +65,13 @@
 
     <!-- Form to add a new quote -->
 
-    <div class="row mb-3">
+    <div class="row mb-4">
         <div class="col-12">
-            <h2 class="mb-3">Ajouter une nouvelle citation</h2>
+            <h4 class="mb-4">Ajouter une nouvelle citation</h4>
             <form th:action="@{/admin/add-quote}" th:object="${newQuoteDto}" method="post">
                 <div class="row mb-2">
                     <div class="col-2">
-                        <input type="text" th:field="*{author}" placeholder="Auteur" class="form-control form-control-sm" />
+                        <input type="text" th:field="*{author}" placeholder="Auteur : NOM (prénom)" class="form-control form-control-sm" />
                     </div>
                     <div class="col-6">
                         <textarea th:field="*{text}" placeholder="Citation" class="form-control form-control-sm" rows="1"></textarea>
@@ -88,7 +90,7 @@
     </div>
 
     <!-- Display potential duplicates here (when trying to add a new quote results into potential duplicates found) -->
-    <div th:unless="${ potentialDuplicates == null or potentialDuplicates.isEmpty() }" class="row mb-3 potential-duplicates-warning">
+    <div th:unless="${ potentialDuplicates == null or potentialDuplicates.isEmpty() }" class="row mb-4 potential-duplicates-warning">
         <div class="col-12">
             <p>La citation n'a pas été ajoutée car c'est peut-être un doublon des citations suivantes : </p>
             <ul>
@@ -99,11 +101,20 @@
         </div>
     </div>
 
+    <!-- Form to import quotes from a CSV file -->
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="mb-4">Importer des citations</h4>
+            <a th:href="@{/admin/import-quotes}" class="btn btn-sm btn-primary">Import CSV</a>
+        </div>
+    </div>
+
     <!-- Form to export all quotes to CSV -->
 
-    <div class="row mb-">
+    <div class="row mb-4">
         <div class="col-12">
-            <h2 class="mb-3">Exporter les citations</h2>
+            <h4 class="mb-4">Exporter les citations</h4>
             <form th:action="@{/admin/export-csv}" method="post">
                 <input type="submit" value="Export CSV" class="btn btn-sm btn-primary">
             </form>

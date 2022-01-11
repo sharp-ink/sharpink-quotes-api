@@ -4,6 +4,8 @@ import io.sharpink.api.resource.quote.QuoteDTO;
 import io.sharpink.api.resource.quote.persistence.Quote;
 import org.springframework.stereotype.Service;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+
 @Service
 public class QuoteMapper {
 
@@ -21,7 +23,7 @@ public class QuoteMapper {
             .setId(source.getId())
             .setAuthor(source.getAuthor())
             .setText(source.getText())
-            .setFrom(source.getFrom())
+            .setFrom("".equals(source.getFrom()) ? null : source.getFrom())
             .setLanguage(source.getLanguage());
     }
 }

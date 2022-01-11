@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 @Controller
@@ -64,6 +66,17 @@ public class QuotesManagementController {
     @PostMapping("/remove-quote/{id}") // Thymeleaf seems to have issues dealing with DELETE (unless it's just me ??? ^^)
     public String removeQuote(@PathVariable("id") String quoteId) {
         quoteService.removeQuote(quoteId);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/import-quotes")
+    public String showQuotesImportPage(Model model) {
+        return "import-quotes";
+    }
+
+    @PostMapping("import-quotes")
+    public String importQuotes(@RequestParam MultipartFile file) {
+        quoteManagementService.importQuotesFromCsv(file);
         return "redirect:/admin";
     }
 

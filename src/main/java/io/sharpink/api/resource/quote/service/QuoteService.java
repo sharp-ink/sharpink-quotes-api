@@ -45,4 +45,8 @@ public class QuoteService {
     public void removeQuote(String quoteId) {
         quoteRepository.deleteById(quoteId);
     }
+
+    public void saveQuotes(List<Quote> quotes) {
+        quoteRepository.saveAll(quotes);
+    }
 }

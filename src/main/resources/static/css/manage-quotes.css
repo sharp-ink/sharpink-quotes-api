@@ -27,6 +27,7 @@ body {
 }
 
 .potential-duplicates-warning {
+    margin: 10px;
     border: 1px solid red;
     border-radius: 10px;
 }
