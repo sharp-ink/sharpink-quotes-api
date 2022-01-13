@@ -25,6 +25,7 @@
             <h4 class="mt-3 mb-4">Citations</h4>
             <p th:case="null">Il n'y a aucune citation</p>
             <div th:case="*">
+                <p>Il y a actuellement <strong>[[${quotes.size()}]] citations</strong> dans la base de données.</p>
                 <div class="table quotes-table">
                     <div class="row table-header mb-2">
                         <div class="col-2">
