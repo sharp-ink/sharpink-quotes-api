@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,12 +30,25 @@ public class QuotesManagementController {
     }
 
     @GetMapping("")
-    public String showQuotesManagementPage(@RequestParam(required = false) String authorSort, Model model) {
+    public String showQuotesManagementPage(
+        @RequestParam(value = "authorSort", required = false) String authorSort,
+        @RequestParam(value = "page", required = false) Integer pageNumber,
+        @RequestParam(value = "size", required = false) Integer pageSize,
+        Model model)
+    {
         authorSort = "desc".equals(authorSort) ? "desc": "asc";
-        var quotes = quoteService.getAllQuotes(authorSort);
-        model.addAttribute("quotes", quotes);
+        pageNumber = (pageNumber != null) ? pageNumber : 1;
+        pageSize = (pageSize != null) ? pageSize : 15;
 
         model.addAttribute("initialAuthorSort", authorSort);
+
+        var quotesPage = quoteService.getAllQuotesPaginated(authorSort, pageNumber, pageSize);
+        model.addAttribute("quotesPage", quotesPage);
+        int totalPages = quotesPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().toList();
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
 
         // we need to provide on the page an empty QuoteDTO object, which will be used in the quote creation form
         model.addAttribute("newQuoteDto", new QuoteDTO());

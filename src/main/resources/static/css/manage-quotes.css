@@ -26,6 +26,29 @@ body {
     color: lightskyblue;
 }
 
+.quotes-pagination {
+    width: fit-content;
+    border: 1px solid black;
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+}
+
+.quotes-pagination a {
+    margin-right: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.quotes-pagination a:last-child {
+    margin-right: 0;
+}
+
+.quotes-pagination a.active {
+    color: deepskyblue;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .potential-duplicates-warning {
     margin: 10px;
     border: 1px solid red;

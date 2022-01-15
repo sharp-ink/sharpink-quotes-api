@@ -4,6 +4,10 @@ import io.sharpink.api.resource.quote.QuoteDTO;
 import io.sharpink.api.resource.quote.persistence.Quote;
 import io.sharpink.api.resource.quote.persistence.QuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +31,12 @@ public class QuoteService {
         return quoteRepository.findAll().stream()
             .sorted(!authorSortDesc ? comparing(Quote::getAuthor) : comparing(Quote::getAuthor).reversed())
             .map(quoteMapper::toQuoteDto).toList();
+    }
+
+    public Page<QuoteDTO> getAllQuotesPaginated(String authorSort, int pageNumber, int pageSize) {
+        var sortByAuthor = "desc".equals(authorSort) ? Sort.by("author").descending() : Sort.by("author").ascending();
+        return quoteRepository.findAll(PageRequest.of(pageNumber - 1, pageSize, sortByAuthor))
+            .map(quoteMapper::toQuoteDto);
     }
 
     public QuoteDTO getRandomQuote() {
