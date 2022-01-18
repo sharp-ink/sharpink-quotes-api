@@ -31,6 +31,7 @@ public class QuotesManagementController {
 
     @GetMapping("")
     public String showQuotesManagementPage(
+        @RequestParam(value = "author", required = false) String authorFilter,
         @RequestParam(value = "authorSort", required = false) String authorSort,
         @RequestParam(value = "page", required = false) Integer pageNumber,
         @RequestParam(value = "size", required = false) Integer pageSize,
@@ -42,7 +43,7 @@ public class QuotesManagementController {
 
         model.addAttribute("initialAuthorSort", authorSort);
 
-        var quotesPage = quoteService.getAllQuotesPaginated(authorSort, pageNumber, pageSize);
+        var quotesPage = quoteService.getAllQuotesPaginated(authorFilter, authorSort, pageNumber, pageSize);
         model.addAttribute("quotesPage", quotesPage);
         int totalPages = quotesPage.getTotalPages();
         if (totalPages > 0) {

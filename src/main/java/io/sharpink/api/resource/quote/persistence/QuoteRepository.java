@@ -1,5 +1,7 @@
 package io.sharpink.api.resource.quote.persistence;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
@@ -9,5 +11,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * - implemented in QuoteRepositoryImpl
  */
 public interface QuoteRepository extends MongoRepository<Quote, String>, CustomQuoteRepository {
+
+    Page<Quote> findByAuthorContainingIgnoreCase(String author, Pageable page);
 
 }

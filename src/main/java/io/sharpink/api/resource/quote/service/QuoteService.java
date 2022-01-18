@@ -5,7 +5,6 @@ import io.sharpink.api.resource.quote.persistence.Quote;
 import io.sharpink.api.resource.quote.persistence.QuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -33,10 +32,12 @@ public class QuoteService {
             .map(quoteMapper::toQuoteDto).toList();
     }
 
-    public Page<QuoteDTO> getAllQuotesPaginated(String authorSort, int pageNumber, int pageSize) {
+    public Page<QuoteDTO> getAllQuotesPaginated(String authorFilter, String authorSort, int pageNumber, int pageSize) {
         var sortByAuthor = "desc".equals(authorSort) ? Sort.by("author").descending() : Sort.by("author").ascending();
-        return quoteRepository.findAll(PageRequest.of(pageNumber - 1, pageSize, sortByAuthor))
-            .map(quoteMapper::toQuoteDto);
+        var quotePage = (authorFilter == null) ?
+            quoteRepository.findAll(PageRequest.of(pageNumber - 1, pageSize, sortByAuthor)) :
+            quoteRepository.findByAuthorContainingIgnoreCase(authorFilter, PageRequest.of(pageNumber - 1, pageSize, sortByAuthor));
+        return quotePage.map(quoteMapper::toQuoteDto);
     }
 
     public QuoteDTO getRandomQuote() {

@@ -9,6 +9,29 @@ function initAuthorSort(initialAuthorSort) {
     }
 }
 
+function filterByAuthor() {
+    const author = $('#authorFilter').val();
+
+    const url = new URL(window.location.href);
+    if (author === '') {
+        url.searchParams.delete('author');
+    } else {
+        url.searchParams.set('author', author);
+    }
+    window.location.href = url.href;
+}
+
+function onkeypressAuthorFilterInput(event) {
+    if (event.key === 'Enter') {
+        filterByAuthor();
+    }
+}
+
+function resetAuthorFilter() {
+    $('#authorFilter').val('');
+    filterByAuthor();
+}
+
 function sortByAuthor(newAuthorSort) {
     const url = new URL(window.location.href);
     url.searchParams.set('authorSort', newAuthorSort);
